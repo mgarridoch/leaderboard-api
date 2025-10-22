@@ -22,21 +22,21 @@ El objetivo principal es demostrar habilidades en diseño de API REST, arquitect
 
 Este proyecto se construirá de manera incremental siguiendo estas fases:
 
--   [ ] **Fase 1: El Monolito Funcional**
+-   [x] **Fase 1: El Monolito Funcional**
     -   [x] Diseño del esquema de la base de datos (Usuarios, Puntuaciones).
     -   [x] Creación de la aplicación base con FastAPI.
     -   [x] Implementación de los endpoints principales de la API (enviar puntuación, obtener leaderboard).
-    -   [ ] Conexión a una base de datos PostgreSQL.
--   [ ] **Fase 2: La "Dockerización"**
-    -   [ ] Escribir un `Dockerfile` para la aplicación FastAPI.
-    -   [ ] Asegurar que la aplicación pueda ser construida y ejecutada como un contenedor de Docker.
+    -   [x] Conexión a una base de datos PostgreSQL.
+-   [x] **Fase 2: La "Dockerización"**
+    -   [x] Escribir un `Dockerfile` para la aplicación FastAPI.
+    -   [x] Asegurar que la aplicación pueda ser construida y ejecutada como un contenedor de Docker.
 -   [ ] **Fase 3: La División (Microservicios)**
     -   [ ] Refactorizar el código en dos servicios: `user-service` y `leaderboard-service`.
     -   [ ] Establecer la comunicación entre los servicios (ej. llamadas HTTP directas).
--   [ ] **Fase 4: La Orquestación**
-    -   [ ] Crear un archivo `docker-compose.yml` para gestionar la red de contenedores.
-    -   [ ] Configurar la base de datos como otro servicio dentro de Docker Compose.
-    -   [ ] Lograr que toda la aplicación (múltiples servicios + base de datos) se levante con un solo comando: `docker-compose up`.
+-   [x] **Fase 4: La Orquestación**
+    -   [x] Crear un archivo `docker-compose.yml` para gestionar la red de contenedores.
+    -   [x] Configurar la base de datos como otro servicio dentro de Docker Compose.
+    -   [x] Lograr que toda la aplicación (múltiples servicios + base de datos) se levante con un solo comando: `docker-compose up`.
 
 ***
 ## 📖 Documentación de la API (Endpoints)
@@ -44,36 +44,29 @@ Este proyecto se construirá de manera incremental siguiendo estas fases:
 *(Esta sección se completará durante la Fase 1)*
 
 ***
-## 🚀 Cómo Empezar (Localmente)
+## 🚀 Cómo Empezar (con Docker)
 
-Para levantar el servidor en tu máquina local, necesitarás tener **Python 3.11+** instalado. Sigue estos pasos:
+Gracias a Docker, levantar todo el entorno de desarrollo es increíblemente simple. El único prerrequisito es tener **Docker Desktop** instalado.
 
 1.  **Clona el repositorio:**
     ```bash
-    git clone [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/tu-usuario/tu-repositorio.git)
+    git clone [https://github.com/mgarridoch/leaderboard-api.git](https://github.com/mgarridoch/leaderboard-api.git)
     cd leaderboard-api
     ```
 
-2.  **Crea y activa un entorno virtual:**
+2.  **Levanta los servicios:**
+    Ejecuta el siguiente comando. La primera vez, Docker descargará la imagen de PostgreSQL y construirá la imagen de la API. Las veces siguientes, será casi instantáneo.
     ```bash
-    # Crea el entorno
-    python -m venv venv
-
-    # Actívalo
-    # En Windows: .\venv\Scripts\activate
-    # En macOS/Linux: source venv/bin/activate
+    docker-compose up
     ```
+    *Si haces cambios en el `Dockerfile` o en `requirements.txt`, usa `docker-compose up --build` para forzar la reconstrucción de la imagen.*
 
-3.  **Instala las dependencias:**
+3.  **¡Listo!** El servidor de la API y la base de datos ya están corriendo.
+    -   La API está disponible en `http://localhost:8000`.
+    -   La documentación interactiva para probar los endpoints está en **`http://localhost:8000/docs`**.
+
+4.  **Para detener la aplicación:**
+    Presiona `Ctrl + C` en la terminal donde ejecutaste el comando. Para asegurarte de que los contenedores se eliminen, puedes ejecutar:
     ```bash
-    pip install -r requirements.txt
+    docker-compose down
     ```
-
-4.  **Ejecuta el servidor:**
-    ```bash
-    uvicorn main:app --reload
-    ```
-
-5.  **¡Listo!** El servidor estará corriendo en `http://127.0.0.1:8000`.
-    -   Puedes ver el endpoint del leaderboard en `http://127.0.0.1:8000/leaderboard`.
-    -   La documentación interactiva de la API está en `http://127.0.0.1:8000/docs`.

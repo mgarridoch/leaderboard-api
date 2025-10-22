@@ -2,6 +2,11 @@ from fastapi import FastAPI, status
 from datetime import datetime
 import uuid
 from schemas import Score, ScoreCreate
+import models
+from database import engine 
+
+# 0. Crear las tablas en la base de datos (si no existen)
+models.Base.metadata.create_all(bind=engine)
 
 # 1. Crear una instancia de FastAPI
 app = FastAPI()

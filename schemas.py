@@ -18,4 +18,4 @@ class Score(ScoreBase):
 
     class Config:
         # Permite que el modelo sea creado desde un objeto de base de datos 
-        orm_mode = True
+        from_attributes = True
