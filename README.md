@@ -23,9 +23,9 @@ El objetivo principal es demostrar habilidades en diseño de API REST, arquitect
 Este proyecto se construirá de manera incremental siguiendo estas fases:
 
 -   [ ] **Fase 1: El Monolito Funcional**
-    -   [ ] Diseño del esquema de la base de datos (Usuarios, Puntuaciones).
-    -   [ ] Creación de la aplicación base con FastAPI.
-    -   [ ] Implementación de los endpoints principales de la API (enviar puntuación, obtener leaderboard).
+    -   [x] Diseño del esquema de la base de datos (Usuarios, Puntuaciones).
+    -   [x] Creación de la aplicación base con FastAPI.
+    -   [x] Implementación de los endpoints principales de la API (enviar puntuación, obtener leaderboard).
     -   [ ] Conexión a una base de datos PostgreSQL.
 -   [ ] **Fase 2: La "Dockerización"**
     -   [ ] Escribir un `Dockerfile` para la aplicación FastAPI.
@@ -46,4 +46,34 @@ Este proyecto se construirá de manera incremental siguiendo estas fases:
 ***
 ## 🚀 Cómo Empezar (Localmente)
 
-*(Instrucciones detalladas se añadirán al completar la Fase 2: Dockerización)*
+Para levantar el servidor en tu máquina local, necesitarás tener **Python 3.11+** instalado. Sigue estos pasos:
+
+1.  **Clona el repositorio:**
+    ```bash
+    git clone [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/tu-usuario/tu-repositorio.git)
+    cd leaderboard-api
+    ```
+
+2.  **Crea y activa un entorno virtual:**
+    ```bash
+    # Crea el entorno
+    python -m venv venv
+
+    # Actívalo
+    # En Windows: .\venv\Scripts\activate
+    # En macOS/Linux: source venv/bin/activate
+    ```
+
+3.  **Instala las dependencias:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Ejecuta el servidor:**
+    ```bash
+    uvicorn main:app --reload
+    ```
+
+5.  **¡Listo!** El servidor estará corriendo en `http://127.0.0.1:8000`.
+    -   Puedes ver el endpoint del leaderboard en `http://127.0.0.1:8000/leaderboard`.
+    -   La documentación interactiva de la API está en `http://127.0.0.1:8000/docs`.
