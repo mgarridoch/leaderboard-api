@@ -4,23 +4,22 @@ Un proyecto de portafolio enfocado en construir un servicio de backend escalable
 
 El objetivo principal es demostrar habilidades en diseño de API REST, arquitectura de microservicios, containerización con Docker y buenas prácticas de ingeniería de backend.
 
-## ✨ Características Principales (a Implementar)
+## ✨ Características Implementadas
 * Envío de puntuaciones de jugadores.
-* Recuperación del Top N de jugadores (leaderboard global).
-* Consulta del ranking de un jugador específico.
-* Entorno de desarrollo y producción completamente "dockerizado".
-* Arquitectura distribuida con múltiples servicios comunicándose entre sí.
+* Recuperación del Top 10 de jugadores (leaderboard global).
+* Entorno de desarrollo y producción completamente "dockerizado" con persistencia de datos.
 
 ## 🛠️ Stack Tecnológico
 * **Lenguaje:** Python 3.11+
 * **Framework API:** FastAPI
 * **Base de Datos:** PostgreSQL
+* **ORM:** SQLAlchemy
 * **Containerización:** Docker & Docker Compose
 
 ***
 ## 🗺️ Roadmap de Desarrollo
 
-Este proyecto se construirá de manera incremental siguiendo estas fases:
+Este proyecto se construyó de manera incremental siguiendo estas fases:
 
 -   [x] **Fase 1: El Monolito Funcional**
     -   [x] Diseño del esquema de la base de datos (Usuarios, Puntuaciones).
@@ -41,7 +40,10 @@ Este proyecto se construirá de manera incremental siguiendo estas fases:
 ***
 ## 📖 Documentación de la API (Endpoints)
 
-*(Esta sección se completará durante la Fase 1)*
+| Método | Endpoint | Descripción |
+| :--- | :--- | :--- |
+| **`POST`** | `/scores` | Envía un nuevo puntaje. El cuerpo debe ser un JSON con `user_id` (string) y `score` (int). |
+| **`GET`** | `/leaderboard` | Recupera un objeto que contiene una lista con el Top 10 de puntajes de la clasificación. |
 
 ***
 ## 🚀 Cómo Empezar (con Docker)
@@ -70,3 +72,29 @@ Gracias a Docker, levantar todo el entorno de desarrollo es increíblemente simp
     ```bash
     docker-compose down
     ```
+
+***
+## 🧠 Principales Aprendizajes
+Este proyecto sirvió como una implementación práctica de varios conceptos clave del desarrollo backend moderno:
+
+* **FastAPI:** Uso de Pydantic (`schemas.py`) para la validación automática de datos de entrada y serialización de salida (`response_model`). Implementación del patrón de Inyección de Dependencias (`Depends`) para gestionar las sesiones de la base de datos de forma limpia.
+* **SQLAlchemy:** Definición de modelos de datos (`models.py`) que se traducen en tablas de PostgreSQL. Creación de la conexión (`engine`) y el patrón de sesión (`SessionLocal`, `get_db`) para interactuar con la base de datos. Escritura de consultas ORM (`db.query`, `.order_by`, `.limit`).
+* **Docker:** Creación de un `Dockerfile` optimizado que aprovecha la caché de capas de Docker (instalando `requirements.txt` en un paso separado). Resolución de problemas de dependencias (`psycopg2` vs `psycopg2-binary`) específicos del entorno del contenedor.
+* **Docker Compose:** Orquestación de una aplicación multi-contenedor (`api` y `db`). Configuración de una red interna (permitiendo a la API contactar a la BD a través del nombre de host `db`). Gestión de la persistencia de datos de la base de datos usando volúmenes (`volumes`).
+* **Desarrollo Local:** Configuración de "hot-reloading" (recarga en caliente) dentro de un contenedor de Docker usando volúmenes (`.:/app`) para un flujo de desarrollo rápido.
+
+***
+## 🔮 Mejoras a Futuro
+Aunque el proyecto es funcional, tiene un gran potencial para crecer y demostrar habilidades más avanzadas:
+
+* **Funcionalidad:**
+    * **Endpoint de Usuario:** Crear `GET /scores/{user_id}` para ver el puntaje y el ranking de un jugador específico.
+    * **Paginación:** Mejorar `GET /leaderboard` para que acepte parámetros de consulta (`?limit=50&offset=0`) y poder navegar por clasificaciones grandes.
+    * **Validación Avanzada:** Añadir validación para que no se puedan enviar puntajes negativos o `user_id` vacíos.
+* **Seguridad:**
+    * **Autenticación:** Implementar un sistema de autenticación (ej. con JWT) para que solo los usuarios registrados puedan enviar puntajes (`POST /scores`).
+* **Arquitectura:**
+    * **Microservicios:** Ejecutar la **Fase 3** del roadmap, separando la lógica en un `user-service` (para manejar la autenticación) y un `leaderboard-service`.
+    * **Caching:** Añadir una capa de caché con **Redis** al endpoint `GET /leaderboard` para reducir la carga en la base de datos y mejorar drásticamente los tiempos de respuesta.
+* **Pruebas (Testing):**
+    * Implementar una suite de pruebas unitarias y de integración usando `pytest` para garantizar la fiabilidad del código.
