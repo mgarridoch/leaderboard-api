@@ -94,7 +94,6 @@ Aunque el proyecto es funcional, tiene un gran potencial para crecer y demostrar
 * **Seguridad:**
     * **Autenticación:** Implementar un sistema de autenticación (ej. con JWT) para que solo los usuarios registrados puedan enviar puntajes (`POST /scores`).
 * **Arquitectura:**
-    * **Microservicios:** Ejecutar la **Fase 3** del roadmap, separando la lógica en un `user-service` (para manejar la autenticación) y un `leaderboard-service`.
     * **Caching:** Añadir una capa de caché con **Redis** al endpoint `GET /leaderboard` para reducir la carga en la base de datos y mejorar drásticamente los tiempos de respuesta.
 * **Pruebas (Testing):**
     * Implementar una suite de pruebas unitarias y de integración usando `pytest` para garantizar la fiabilidad del código.
