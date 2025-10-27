@@ -1,15 +1,30 @@
 services:
-  # Servicio de la API de FastAPI
-  api:
-    build: .
+  # 1. Renombramos el servicio de 'api' a 'leaderboard_service'
+  leaderboard_service:
+    # 2. Le decimos que construya usando el Dockerfile de la subcarpeta
+    build: ./leaderboard-service
     ports:
       - "8000:8000"
     volumes:
-      - ./:/app
+      # 3. Actualizamos el volumen para que sincronice la subcarpeta
+      - ./leaderboard-service:/app
     environment:
       - DATABASE_URL=postgresql://postgres:mysecretpassword@db:5432/leaderboard_db
     depends_on:
       - db
+      - user_service
+
+  # Nuevo servicio para la gestión de usuarios
+  user_service:
+      build: ./user-service
+      ports:
+        - "8001:8000"  # Lo exponemos en el puerto 8001
+      volumes:
+        - ./user-service:/app
+      environment:
+        - DATABASE_URL=postgresql://postgres:mysecretpassword@db:5432/leaderboard_db
+      depends_on:
+        - db
 
   # Servicio de la Base de Datos PostgreSQL
   db:
