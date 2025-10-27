@@ -29,9 +29,9 @@ Este proyecto se construyó de manera incremental siguiendo estas fases:
 -   [x] **Fase 2: La "Dockerización"**
     -   [x] Escribir un `Dockerfile` para la aplicación FastAPI.
     -   [x] Asegurar que la aplicación pueda ser construida y ejecutada como un contenedor de Docker.
--   [ ] **Fase 3: La División (Microservicios)**
-    -   [ ] Refactorizar el código en dos servicios: `user-service` y `leaderboard-service`.
-    -   [ ] Establecer la comunicación entre los servicios (ej. llamadas HTTP directas).
+-   [x] **Fase 3: La División (Microservicios)**
+    -   [x] Refactorizar el código en dos servicios: `user-service` y `leaderboard-service`.
+    -   [x] Establecer la comunicación entre los servicios (ej. llamadas HTTP directas).
 -   [x] **Fase 4: La Orquestación**
     -   [x] Crear un archivo `docker-compose.yml` para gestionar la red de contenedores.
     -   [x] Configurar la base de datos como otro servicio dentro de Docker Compose.
